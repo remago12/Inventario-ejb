@@ -7,6 +7,7 @@ package com.inventario.entidades;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -41,14 +42,10 @@ public class Pais implements Serializable {
     @NotNull
     @Column(name = "PAIS_ID")
     private Long paisId;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 2)
+    @Size(max = 2)
     @Column(name = "CODIGO")
     private String codigo;
-    @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 50)
+    @Size(max = 50)
     @Column(name = "NOMBRE")
     private String nombre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "paisId", fetch = FetchType.LAZY)
@@ -108,14 +105,22 @@ public class Pais implements Serializable {
     }
 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Pais)) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        Pais other = (Pais) object;
-        if ((this.paisId == null && other.paisId != null) || (this.paisId != null && !this.paisId.equals(other.paisId))) {
+        if (getClass() != obj.getClass()) {
             return false;
+        }
+        final Pais other = (Pais) obj;
+        if (!Objects.equals(this.paisId, other.paisId)) {
+            return false;
+        }
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return true;
+        }
+        if (!Objects.equals(this.nombre, other.nombre)) {
+            return true;
         }
         return true;
     }
