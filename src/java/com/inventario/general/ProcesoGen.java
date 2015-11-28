@@ -5,6 +5,7 @@
  */
 package com.inventario.general;
 
+import com.inventario.entidades.Pais;
 import com.inventario.entidades.Persona;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -46,6 +47,43 @@ public class ProcesoGen implements ProcesoGenLocal {
                 valido = false;
             }
             if(per.getNombres()==null || per.getNombres().isEmpty()){
+                valido = false;
+            }
+        }
+        return valido;
+    }
+    
+    @Override
+    public String guardarPais(Pais pais, String bandera){
+        System.out.println("Ingresa a método Guardar Pais");
+        //Valida que el objeto venga lleno
+        boolean valido = validarPais(pais);
+        String respuesta = "Guardado exitosamente!";
+        if(valido){
+            if(bandera.equals("G")){
+                em.persist(pais);
+            }else{
+                em.merge(pais);
+            }
+            
+        }else{
+            respuesta = "Verificar que todos los datos han sido ingresados!";
+        }
+        return respuesta;
+    }
+    
+    private boolean validarPais(Pais pais){
+        boolean valido = true;
+        if(pais==null){
+            valido = false;
+        }else{
+            if(pais.getPaisId()== null || pais.getPaisId() == 0){
+                valido = false;
+            }
+            if(pais.getCodigo()==null || pais.getCodigo().isEmpty()){
+                valido = false;
+            }
+            if(pais.getNombre()==null || pais.getNombre().isEmpty()){
                 valido = false;
             }
         }

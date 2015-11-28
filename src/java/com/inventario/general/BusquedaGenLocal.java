@@ -6,6 +6,7 @@
 package com.inventario.general;
 
 import com.inventario.entidades.Giro;
+import com.inventario.entidades.Pais;
 import com.inventario.entidades.Persona;
 import java.util.List;
 import javax.ejb.Local;
@@ -48,6 +49,16 @@ public interface BusquedaGenLocal {
      * @throws Exception en caso de error lanza excepción genérica
      */
     public Long obtenerCorr(Class clase, String nombreId) throws Exception;
+
+    /**
+     * Método encargado de realizar búsqueda de Paises
+     * @param id filtro id
+     * @param cod filtrado por código de pais
+     * @param nombre filtrado por nombre de pais
+     * @return lista de paises de acuerdo a filtro
+     * @throws Exception en caso de error lanza excepción generica.
+     */
+    public List<Pais> busqPais(Long id, String cod, String nombre) throws Exception;
     
     
     

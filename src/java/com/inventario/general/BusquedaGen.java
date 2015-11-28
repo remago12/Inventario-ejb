@@ -4,6 +4,7 @@
 package com.inventario.general;
 
 import com.inventario.entidades.Giro;
+import com.inventario.entidades.Pais;
 import com.inventario.entidades.Persona;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,10 +37,10 @@ public class BusquedaGen implements BusquedaGenLocal {
             StringBuilder sql = new StringBuilder();
             sql.append("Select p from Persona p where 1 = 1 ");
             if(nombrs!=null && !nombrs.isEmpty()){
-                sql.append("and p.nombres like '%").append(nombrs).append("' ");
+                sql.append("and p.nombres like '%").append(nombrs).append("%' ");
             }
             if(apellids!=null && !apellids.isEmpty()){
-                sql.append("and p.apellidos like '%").append(apellids).append("' ");
+                sql.append("and p.apellidos like '%").append(apellids).append("%' ");
             }
             
             System.out.println("Antes de ejecutar Query: "+sql.toString());
@@ -96,4 +97,34 @@ public class BusquedaGen implements BusquedaGenLocal {
         
         return idCorrelativo;
     }
+    
+    @Override
+    public List<Pais> busqPais(Long id, String cod, String nombre)
+        throws Exception{
+        List<Pais> paisLst = new ArrayList<>();
+        try {
+            System.out.println("Ingresa a realizar busqueda de Pais");
+            StringBuilder sql = new StringBuilder();
+            sql.append("Select p from Pais p where 1 = 1 ");
+            if(id!=null && id!=0){
+                sql.append("and p.paisId =").append(id).append(" ");
+            }
+            if(cod!=null && !cod.isEmpty()){
+                sql.append("and p.codigo like '%").append(cod).append("%' ");
+            }
+            if(nombre!=null && !nombre.isEmpty()){
+                sql.append("and p.nombre like '%").append(nombre).append("%' ");
+            }
+            
+            Query q = em.createQuery(sql.toString());
+            paisLst = q.getResultList();
+            
+        } catch (NoResultException e) {
+            System.out.println("No se obtuvieron datos..");
+            return null;
+        } catch (Exception e) {
+            throw new Exception("Error al realizar búsqueda: "+e.getMessage());
+        }
+        return paisLst;
+    } 
 }

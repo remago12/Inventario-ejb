@@ -5,6 +5,7 @@
  */
 package com.inventario.general;
 
+import com.inventario.entidades.Pais;
 import com.inventario.entidades.Persona;
 import javax.ejb.Local;
 
@@ -21,4 +22,12 @@ public interface ProcesoGenLocal {
      * @return String con la respuesta si fue satisfactorio o no.
      */
     public String guardarPersona(Persona per);
+
+    /**
+     * Método encargado de guardar objeto Pais
+     * @param pais objeto pais
+     * @param bandera enviar G si es nuevo o M si se esta modificando
+     * @return String de confirmación de la transacción.
+     */
+    public String guardarPais(Pais pais, String bandera);
 }
