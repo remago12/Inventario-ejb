@@ -16,7 +16,7 @@ import javax.persistence.Query;
 
 /**
  * Clase que contendrá las busquedas generales y comunes para las pantallas
- * @author Rene Gomez
+ * @author Rene Gomez G
  * @since 28/10/2015
  */
 @Stateless
